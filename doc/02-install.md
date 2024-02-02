@@ -4,7 +4,7 @@ This will install the required packages, just before initializing the cluster.
 ## Basics
 1. OS Configurations
 2. Install the Container Runtime - Docker
-3. K8s components installation
+3. K8s installation
 4. Create image
 
 You are given script files to automate the installation. This will greately speed up the process. They are kept up-to-date as needed. Make sure that they are not outdated.
@@ -54,5 +54,21 @@ Review the [script file](../scripts/cri-dockerd-install.sh) and execute it. (Rel
 **Install**
 ```shell
 curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/cri-dockerd-install.sh | bash
-newgrp docker
+```
+
+## 3. K8s installation
+We are going to install necessary tools to initialize a k8s cluster.
+
+You will install these packages on all of your machine:
+- **kubeadm:** the command to bootstrap the cluster.
+- **kubelet:** the component that runs on all of the machines in your cluster and does things like starting pods and containers.
+- **kubectl:** the command line util to talk to your cluster
+
+You can check the official documentation: [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime), which will install all of them.
+
+> This environment that is provided by OCI & Ubuntu. It is quite updated. Most of the prerequisites in the documentation is already met.
+
+Please review the [install script](../scripts/kubeadm-install.sh) and perform installation as following:
+```shell
+curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/kubeadm-install.sh | bash
 ```
