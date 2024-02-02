@@ -12,7 +12,7 @@ You are given script files to automate the installation. This will greately spee
 
 > Make sure all steps are completed in order
 
-## 1. OS COnfigurations
+## 1. OS Configurations
 We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands are tailored for the specific OS.
 
 1. Disable swap
