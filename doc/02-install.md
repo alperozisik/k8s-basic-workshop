@@ -7,6 +7,8 @@ This will install the required packages, just before initializing the cluster.
 3. K8s components installation
 4. Create image
 
+You are given script files to automate the installation. This will greately speed up the process. They are kept up-to-date as needed. Make sure that they are not outdated.
+
 > Make sure all steps are completed in order
 
 ## 1. OS COnfigurations
@@ -22,13 +24,17 @@ We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands 
     sudo systemctl disable ufw
     ```
     > Normally you do not disable the firewall, instead configure it for [the ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/). We are skipping this, just disabling for the workshop. There is nothing much sensitive running here.
+3. Install net tools
+    ```shell
+    sudo apt install net-tools -y
+    ```
 
 ## 2. Container Runtime
-There are multiple container runtimes are supported by Kubernetes. For this workshop we will be using docker.
+There are multiple [container runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) are supported by Kubernetes. For this workshop we will be using docker.
 
 ### 2.1 Docker installation
 
-You can follow the official guide or use the [script](../scripts/docker-install.sh) (it could be outdated) to automate it all
+You can follow the official guide or use the [script](../scripts/docker-install.sh)
 
 #### Official docs
 1. Follow the official [Install Docker Engine on Ubuntu guide](https://docs.docker.com/engine/install/ubuntu/)
@@ -36,5 +42,17 @@ You can follow the official guide or use the [script](../scripts/docker-install.
 
 #### Scripted install
 ```shell
-curl <github url> | bash
+curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/docker-install.sh | bash
+newgrp docker
+```
+
+### 2.2 Install cri-dockerd
+This enables docker & kubernetes to talk to each other. In earlier versions of Docker this was included in the bundle.
+
+Review the [script file](../scripts/cri-dockerd-install.sh) and execute it. (Release might be updated in future)
+
+**Install**
+```shell
+curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/cri-dockerd-install.sh | bash
+newgrp docker
 ```
