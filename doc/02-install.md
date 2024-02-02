@@ -74,7 +74,7 @@ Please review the [install script](../scripts/kubeadm-install.sh) and perform in
 curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/kubeadm-install.sh | bash
 ```
 
-## 4. Install helm
+## 4. Install helm
 Helm is a package manager for k8s. In the next step, we will be creating an image. It is good to include it in the image.
 It can be installed easly as stated in [the official documentation](https://helm.sh/docs/intro/install/#from-apt-debianubuntu)
 ```shell
