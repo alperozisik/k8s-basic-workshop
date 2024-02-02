@@ -83,4 +83,4 @@ curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scrip
 
 ## 5. Create Image
 1. If you are not familiar with creating images, review the [Creating a Custom Image document](https://docs.oracle.com/en-us/iaas/secure-desktops/create-custom-image.htm)
-2. Create image in same compartment, name it as `k8s-base`. While creating the image, machine will be offline, automatically restart afterwards. Do not refresh VScode window, until instance status becomes ready.
+2. Create image in same compartment, name it as `k8s-base`. While creating the image, machine will be offline, automatically restart afterwards. Do not refresh VScode window, until instance status becomes ready. ![](./images/scr-12.png)
