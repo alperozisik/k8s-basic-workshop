@@ -5,7 +5,8 @@ This will install the required packages, just before initializing the cluster.
 1. OS Configurations
 2. Install the Container Runtime - Docker
 3. K8s installation
-4. Create image
+4. Install helm
+5. Create image
 
 You are given script files to automate the installation. This will greately speed up the process. They are kept up-to-date as needed. Make sure that they are not outdated.
 
@@ -72,3 +73,14 @@ Please review the [install script](../scripts/kubeadm-install.sh) and perform in
 ```shell
 curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/kubeadm-install.sh | bash
 ```
+
+## 4. Install helm
+Helm is a package manager for k8s. In the next step, we will be creating an image. It is good to include it in the image.
+It can be installed easly as stated in [the official documentation](https://helm.sh/docs/intro/install/#from-apt-debianubuntu)
+```shell
+curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/helm-install.sh | bash
+```
+
+## 5. Create Image
+1. If you are not familiar with creating images, review the [Creating a Custom Image document](https://docs.oracle.com/en-us/iaas/secure-desktops/create-custom-image.htm)
+2. Create image in same compartment, name it as `k8s-base`. While creating the image, machine will be offline, automatically restart afterwards. Do not refresh VScode window, until instance status becomes ready.
