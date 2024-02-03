@@ -6,10 +6,10 @@ We are going to create a single master node K8s cluster. Execute the following s
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --service-cidr 10.96.0.0/16 --apiserver-advertise-address $(ifconfig ens3 | grep "inet " | awk '{print $2}') --cri-socket unix:///var/run/cri-dockerd.sock
 ```
 Let's break down some of the arguments:
-- `--pod-network-cidr` network of the pods. This is optional and the value provided by our picking
-- `--service-cidr` network of the k8s internal services. This is optional and the value provided by our picking
-- `--apiserver-advertise-address` Private IP address of the master node. This IP should  be accessible by other nodes in the same cluster. This is required. `$(ifconfig ens3 | grep "inet " | awk '{print $2}')` automatically getting the IP address from the network interface.
-- `--cri-socket` which container runtime that we are going to use. Documentation says optional. By experince, it is best to be provided.
+- `--pod-network-cidr` network of the pods. The value provided here is to be compatible with the networking plugin
+- `--service-cidr` network of the k8s internal services. The value provided here is to be compatible with the networking plugin
+- `--apiserver-advertise-address` Private IP address of the master node. This IP should  be accessible by other nodes in the same cluster. If there are more than single adapter, this is required. `$(ifconfig ens3 | grep "inet " | awk '{print $2}')` automatically getting the IP address from the network interface.
+- `--cri-socket` which container runtime that we are going to use
 
 For more information please check official documentation: [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
