@@ -19,12 +19,17 @@ We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands 
     ```shell
     sudo swapoff -a
     ```
-2. Disable firewall  
+2. Open ports firewall  
     ```shell
-    sudo systemctl stop ufw
-    sudo systemctl disable ufw
+    sudo ufw allow 6443
+    sudo ufw allow 2379:2380/tcp
+    sudo ufw allow 10250/tcp
+    sudo ufw allow 10259/tcp
+    sudo ufw allow 10257/tcp
+    sudo ufw allow 30000:32767/tcp
     ```
-    > Normally you do not disable the firewall, instead configure it for [the ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/). We are skipping this, just disabling for the workshop. There is nothing much sensitive running here.
+   More information about [k8s ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/)
+
 3. Install net tools
     ```shell
     sudo apt install net-tools -y
