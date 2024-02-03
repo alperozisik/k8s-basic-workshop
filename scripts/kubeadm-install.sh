@@ -16,3 +16,5 @@ sudo apt-get install -y kubelet kubeadm kubectl
 
 # This will prevent automatic updates for the essential kubernetes components. Upgrading is another topic!
 sudo apt-mark hold kubelet kubeadm kubectl
+
+echo "source <(kubectl completion bash)" >> ~/.bashrc
