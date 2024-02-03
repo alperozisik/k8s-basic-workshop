@@ -21,6 +21,7 @@
         - [Save as Root in Remote - SSH](https://marketplace.visualstudio.com/items?itemName=yy0931.save-as-root)
         - [Window Colors](https://marketplace.visualstudio.com/items?itemName=stuart.unique-window-colors) *optional*
         - [Resource Monitor](https://marketplace.visualstudio.com/items?itemName=mutantdino.resourcemonitor) *optional*
+        - [Peek Hidden Files](https://marketplace.visualstudio.com/items?itemName=adrianwilczynski.toggle-hidden)
     - Remote connections
         - While adding a new configuration (for the fist time), use the following ssh command: `ssh ubuntu@<ip>`, where the *ip* is the Public IP address of the compute instance
         - Later edit the SSH configuration file (the one located under your user folder) ![](./images/scr-01.png) ![](./images/scr-02.png)
@@ -28,7 +29,7 @@
         - After creating new instance, you can copy-paste the necessery lines, just replace the host value and the ip value from the new instance. Make sure that the indentations are correct. Eventually save the file. To list new changes, you need to press refresh ![](./images/scr-09.png)
         - While connecting for the fist time you will be asked to confirm the remote key signature ![](./images/scr-07.png)
     - Remote installed extensions:
-        - Some of the VScode extensions require to be manually installed on the remote environment. From the extensions above, **Save as Root in Remote - SSH**, **Window Colors** and **Resource Monitor** require such touch. ![](./images/scr-04.png)
+        - Some of the VScode extensions require to be manually installed on the remote environment. From the extensions above, **Save as Root in Remote - SSH**, **Window Colors**, **Peek Hidden Files** and **Resource Monitor** require such touch. ![](./images/scr-04.png)
     - Open remote (workspace) folder:
         - Open the folder from explorer ![](./images/scr-05.png) ![](./images/scr-06.png) ![](./images/scr-10.png)
     - Change colors *optional*:
