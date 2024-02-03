@@ -31,6 +31,8 @@ We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands 
     ```
    More information about [k8s ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/)
 
+   > Normally, you can disable the firewall. In this OCI provided Ubuntu image, it is observed disabling firewall break communication of kubernetes cluster
+
 3. Install net tools
     ```shell
     sudo apt install net-tools -y
@@ -90,3 +92,5 @@ curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scrip
 ## 5. Create Image
 1. If you are not familiar with creating images, review the [Creating a Custom Image document](https://docs.oracle.com/en-us/iaas/secure-desktops/create-custom-image.htm)
 2. Create image in same compartment, name it as `k8s-base`. While creating the image, machine will be offline, automatically restart afterwards. Do not refresh VScode window, until instance status becomes ready. ![](./images/scr-12.png)
+
+> It is expected to reboot the system at once. The firewall settings that we enabled earlier, does not kick-in without reboot. This is essential while we are adding workers to cluster. Creating image handles that reboot for us. If you are not going through this step, you can preform reboot now

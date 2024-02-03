@@ -2,8 +2,9 @@
 
 1. Create a compartment in your name, or just name this k8s. You will be using this compartment throughout the workshop
 2. Create a VCN, via wizard, with default settings. You can name it `k8s`
-3. If you do not have a SSH key file, create it. You will be using it to connect the instances
-4. Create instance:
+3. Enable internal communication: Edit the (default) security list, allowing all internal traffic ![](./images/scr-14.png)
+4. If you do not have a SSH key file, create it. You will be using it to connect the instances
+5. Create instance:
     1. Go to your compartment
     2. Create instance with the following selection:
         - **Name:** `k8s-master`
