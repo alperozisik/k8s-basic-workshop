@@ -19,8 +19,9 @@ We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands 
     ```shell
     sudo swapoff -a
     ```
-2. Open ports firewall  
+2. Open ports on firewall  
     ```shell
+    sudo ufw enable
     sudo ufw allow 6443
     sudo ufw allow 2379:2380/tcp
     sudo ufw allow 10250/tcp

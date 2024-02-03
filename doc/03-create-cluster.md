@@ -3,7 +3,7 @@
 ## Initialize cluster
 We are going to create a single master node K8s cluster. Execute the following script to init the cluster via kubeadm:
 ```shell
-sudo kubeadm init --pod-network-cidr 10.244.0.0/16 --service-cidr 10.96.0.0/16 --apiserver-advertise-address $(ifconfig ens3 | grep "inet " | awk '{print $2}') --cri-socket unix:///var/run/cri-dockerd.sock
+sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --service-cidr 10.96.0.0/16 --apiserver-advertise-address $(ifconfig ens3 | grep "inet " | awk '{print $2}') --cri-socket unix:///var/run/cri-dockerd.sock
 ```
 Let's break down some of the arguments:
 - `--pod-network-cidr` network of the pods. This is optional and the value provided by our picking
@@ -86,5 +86,5 @@ kubectl create ns kube-flannel
 kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
 
 helm repo add flannel https://flannel-io.github.io/flannel/
-helm install flannel --set podCidr="10.244.0.0/16" --namespace kube-flannel flannel/flannel
+helm install flannel --set podCidr="192.168.0.0/16" --namespace kube-flannel flannel/flannel
 ```
