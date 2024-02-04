@@ -134,6 +134,68 @@
     ```
     </details>
 
+3. What is the IP address of the pod?
+    <details>
+        <summary>Answer</summary>
+
+    You need to replace the pod name from the previous query
+    ```shell
+    kubectl describe pod nginx1-846d65cc74-p5h4l
+    ```
+    </details>
+
+4. Connect to the IP address by using the `curl` command-line utility. You should see the default nginx welcome page
+
+    <details>
+        <summary>Answer</summary>
+
+    You need to replace the ip from the previous query
+    ```shell
+    curl 192.168.38.67
+    ```
+    </details>
+
+5. Getting Inside a Running Pod
+1.  Run a bash shell inside the nginx pod.
+    > **Hint:** `kubectl exec -it <pod_name>`. The shell needs to be interactive, and it needs stdin (`-it`).
+    <details>
+        <summary>Answer</summary>
+
+    ```shell
+    kubectl exec -it nginx1-846d65cc74-p5h4l bash
+    ```
+    </details>
+2. Change the contents of the default nginx index.html file: /usr/share/nginx/html/index.html
+    > **Hint:** you could use a text editor. The alternative is to simply `echo "some text" > /path/to/desired/file.html`
+    <details>
+        <summary>Answer</summary>
+
+    ```shell
+    echo "hello from alper-k8s!" > /usr/share/nginx/html/index.html
+    ```
+    </details>
+3. Exit the shell (type exit or press Ctrl-D). Is the pod still running? Why or why not?
+    > **Note:** When the main process inside a container is stopped, the entire container stops. However, the shell was not the main process inside the container - the main process was (and still is) nginx!
+    <details>
+        <summary>Answer</summary>
+
+    ```shell
+    exit
+    ```
+    </details>
+
+4. Using curl, connect to the web server once again. You should receive the new contents of the index.html file.
+    <details>
+        <summary>Answer</summary>
+
+    ```shell
+    curl 192.168.38.67
+    ```
+    </details>
+
+# 5. Deleting a Pod
+1. Time to do some cleanup... delete the `alpine1` pod. What happens?
+
 
 
 
