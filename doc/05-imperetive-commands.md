@@ -79,6 +79,9 @@
 
     ```shell
     kubectl get pod
+    ```
+    OR
+    ```shell
     kubectl get pod -o wide
     ```
     </details>
@@ -103,3 +106,34 @@
     ```
     Press `Ctrl` + `c`, otherwise ping go on indefinelty
     </details>
+
+# 3. Running nginx
+1. Run a new pod, with the following settings:
+    - name: nginx1
+    - image name: nginx
+    > **Hint:** This is a "normal" pod - there is no need to run it in interactive mode. Also, since the nginx image will automatically start the nginx daemon, there is no need to specify a command to run.
+    <details>
+        <summary>Answer</summary>
+
+    ```shell
+    kubectl run nginx1 --image=nginx
+    ```
+    </details>
+
+2. Check that the pod is running. On what host has it been scheduled?
+    > **Note:** chances are it has been scheduled on the other node (not the one on which the *alpine* pod is running). Kubernetes does its best to balance the workload among worker nodes.
+    <details>
+        <summary>Answer</summary>
+
+    ```shell
+    kubectl get pod
+    ```
+    OR
+    ```shell
+    kubectl get pod -o wide
+    ```
+    </details>
+
+
+
+
