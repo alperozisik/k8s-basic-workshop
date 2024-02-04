@@ -7,7 +7,7 @@ sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --service-cidr 10.96.0.0/16 
 ```
 Let's break down some of the arguments:
 - `--pod-network-cidr` network of the pods. The value provided here is to be compatible with the networking plugin
-- `--service-cidr` network of the k8s internal services. The value provided here is to be compatible with the networking plugin
+- `--service-cidr` When services are created in Kubernetes, they are assigned a VIP from the specified. Should not overlap with the pod network or any other networks in use within your cluster.
 - `--apiserver-advertise-address` Private IP address of the master node. This IP should  be accessible by other nodes in the same cluster. If there are more than single adapter, this is required. `$(ifconfig ens3 | grep "inet " | awk '{print $2}')` automatically getting the IP address from the network interface.
 - `--cri-socket` which container runtime that we are going to use
 
