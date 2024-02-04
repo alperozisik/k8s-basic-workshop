@@ -3,7 +3,10 @@
     **Hint:** namespaces are a resource just like everything else in k8s.
     **Hint:** kubectl get namespaces
     <details>
-    ```shell
-    kubectl get namespaces
-    ```
+        <summary>Answer</summary>
+
+        ```shell
+        kubectl get namespaces
+        ```
+        
     </details>
