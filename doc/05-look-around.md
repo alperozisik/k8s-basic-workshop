@@ -5,8 +5,7 @@
     <details>
         <summary>Answer</summary>
 
-        ```shell
-        kubectl get namespaces
-        ```
-        
+    ```shell
+    kubectl get namespaces
+    ```
     </details>
