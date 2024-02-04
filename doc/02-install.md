@@ -25,9 +25,13 @@ We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands 
     sudo ufw allow 6443
     sudo ufw allow 2379:2380/tcp
     sudo ufw allow 10250/tcp
+    sudo ufw allow 10255/tcp
+    sudo ufw allow 179/tcp
     sudo ufw allow 10259/tcp
     sudo ufw allow 10257/tcp
     sudo ufw allow 30000:32767/tcp
+    sudo ufw allow 8285/udp
+    sudo ufw allow 8472/udp
     ```
    More information about [k8s ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/)
 

@@ -155,7 +155,7 @@
     ```
     </details>
 
-5. Getting Inside a Running Pod
+# 5. Getting Inside a Running Pod
 1.  Run a bash shell inside the nginx pod.
     > **Hint:** `kubectl exec -it <pod_name>`. The shell needs to be interactive, and it needs stdin (`-it`).
     <details>
