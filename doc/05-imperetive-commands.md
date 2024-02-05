@@ -195,7 +195,7 @@
     ```
     </details>
 
-# 5. Deleting a Pod
+# 6. Deleting a Pod
 1. Time to do some cleanup... delete the `alpine1` pod. What happens?
     <details>
         <summary>Answer</summary>
