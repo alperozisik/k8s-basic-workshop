@@ -20,22 +20,13 @@ We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands 
     sudo swapoff -a
     ```
 2. Open ports on firewall  
-    ```shell
-    sudo ufw enable
-    sudo ufw allow 6443
-    sudo ufw allow 2379:2380/tcp
-    sudo ufw allow 10250/tcp
-    sudo ufw allow 10255/tcp
-    sudo ufw allow 179/tcp
-    sudo ufw allow 10259/tcp
-    sudo ufw allow 10257/tcp
-    sudo ufw allow 30000:32767/tcp
-    sudo ufw allow 8285/udp
-    sudo ufw allow 8472/udp
-    ```
-   More information about [k8s ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/)
+    We are going follow to steps to enable **iptables** instead of **ufw**. You can stick with [ufw](./ufw.md), instead. This is not recommended.
 
-   > Normally, you can disable the firewall. In this OCI provided Ubuntu image, it is observed disabling firewall break communication of kubernetes cluster
+    ```shell
+    curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/ufw.sh | bash
+    ```
+    
+    More information about [k8s ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/)
 
 3. Install net tools
     ```shell
@@ -105,6 +96,8 @@ curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scrip
 ```
 
 ## 5. Create Image
+> YES!. You need to perform the step now!
+
 1. If you are not familiar with creating images, review the [Creating a Custom Image document](https://docs.oracle.com/en-us/iaas/secure-desktops/create-custom-image.htm)
 2. Create image in same compartment, name it as `k8s-base`. While creating the image, machine will be offline, automatically restart afterwards. Do not refresh VScode window, until instance status becomes ready. ![](./images/scr-12.png)
 
