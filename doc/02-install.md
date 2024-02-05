@@ -23,7 +23,7 @@ We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands 
     We are going follow to steps to enable **iptables** instead of **ufw**. You can stick with [ufw](./ufw.md), instead. This is not recommended.
 
     ```shell
-    curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/ufw.sh | bash
+    curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/iptables.sh | bash
     ```
     
     More information about [k8s ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/)
