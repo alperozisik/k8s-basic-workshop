@@ -19,8 +19,7 @@ We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands 
     ```shell
     sudo apt install cron -y
     sudo swapoff -a
-    (sudo crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | sudo crontab -
-|| true
+    (sudo crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | sudo crontab - || true
     ```
 2. Open ports on firewall  
     We are going follow to steps to enable **iptables** instead of **ufw**. You can stick with [ufw](./ufw.md), instead. This is not recommended.
