@@ -1,4 +1,4 @@
-Using **iptables** is advised, instead of **ufw**.
+Using **iptables** is advised, instead of **ufw**. OCI does not recommend using UFW, it will break stuff.
 
 If you want to use ufw, here are the commands that opens the ports.
 

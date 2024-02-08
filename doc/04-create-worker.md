@@ -20,7 +20,7 @@ Network and its plugins are in forms of containers (pods). You can watch creatio
 
 Execute the following command on the **master** node:
 ```shell
-watch kubectl get pods -o wide -A
+watch kubectl get pods -o wide -A --sort-by='.spec.nodeName'
 ```
 You can exit watch later (after completing joining of workers) by pressing `CTRL + C`
 
