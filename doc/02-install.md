@@ -89,6 +89,7 @@ code ~/.bashrc
 ```
 Add the following lines to the end and save
 ```shell
+source <(kubectl completion bash)
 alias k=kubectl
 complete -o default -F __start_kubectl k
 ```
