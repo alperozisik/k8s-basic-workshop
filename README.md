@@ -1,7 +1,7 @@
 # Kubernetes Basic Workshop
 In this workshop fundamentals of K8s will be learned
 
-# Labs
+# Day 1 Labs
 Follow your instructor on the steps
 
 ## Lab 1: Setup a cluster
