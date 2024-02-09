@@ -30,10 +30,10 @@ As you have initialized cluster on the master node, it has generated a join comm
 kubeadm join 10.6.0.56:6443 --token inx5ge.z8lgw44zr3ui9r4t \
         --discovery-token-ca-cert-hash sha256:a8958c7cfa5e57db14e299c98cd466aa6f54821a1a6676d802f474f5e20a0626 
 ```
-> ⚠️ Your command will be slightly different. If you copy-paste **my** command above, it will **not** work for you.
+> 🚨 Your command will be slightly different. If you copy-paste **my** command above, it will **not** work for you.
 
 1. That command requires root privileges add `sudo` in front of it
-2. This will also require specifying the CRI. add `--cri-socket unix:///var/run/cri-dockerd.sock` to the end of that command.
+2. 💡 This `kubeadm` command might require you to specify `--cri-socket` argument. Please refer to your installed container engine installation document, which you have completed earler.
 
 ## Adding kube config to workers
 If you need to perform operations on the cluster from the workers, you need to be a k8s authorized user. As we have created the cluster on the master node, kube config file has created for the cluster admin. We can download this.

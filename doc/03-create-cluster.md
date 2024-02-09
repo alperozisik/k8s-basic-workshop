@@ -3,13 +3,26 @@
 ## Initialize cluster
 We are going to create a single master node K8s cluster. Execute the following script to init the cluster via kubeadm:
 ```shell
-sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --service-cidr 10.96.0.0/16 --apiserver-advertise-address $(ifconfig ens3 | grep "inet " | awk '{print $2}') --cri-socket unix:///var/run/cri-dockerd.sock
+sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --service-cidr 10.96.0.0/16
 ```
 Let's break down some of the arguments:
 - `--pod-network-cidr` network of the pods. The value provided here is to be compatible with the networking plugin
 - `--service-cidr` When services are created in Kubernetes, they are assigned a VIP from the specified. Should not overlap with the pod network or any other networks in use within your cluster.
-- `--apiserver-advertise-address` Private IP address of the master node. This IP should  be accessible by other nodes in the same cluster. If there are more than single adapter, this is required. `$(ifconfig ens3 | grep "inet " | awk '{print $2}')` automatically getting the IP address from the network interface.
-- `--cri-socket` which container runtime that we are going to use
+
+> 💡 This `kubeadm` command might require you to specify `--cri-socket` argument. Please refer to your installed container engine installation document, which you have completed earler.
+
+Possible `--cri-socket` values are:
+- `--cri-socket unix:///var/run/containerd/containerd.sock`
+- `--cri-socket unix:///var/run/crio/crio.sock`
+- `--cri-socket unix:///var/run/cri-dockerd.sock`
+
+### Extra arguments
+Here are some optional arguments
+
+- `--apiserver-advertise-address` Private IP address of the master node. This IP should  be accessible by other nodes in the same cluster. If there are more than single IP, this is required. `$(ip route get 8.8.8.8 | sed -n 's/.*src \([^\ ]*\).*/\1/p')` automatically getting the IP address from the network interface.
+
+- `--apiserver-cert-extra-sans=<Private IP>,<Public IP>`. The k8s api server is using ssl (https). Therefore therse should be a certificate for each accessible address. If you want to use `kubectl` over the public ip or DNS, those should be added within `--apiserver-cert-extra-sans` argument, each separated via comma `,`. Do not forget to add private ip too.  
+  Here is an example: `--apiserver-cert-extra-sans=10.6.0.7,89.168.95.222`
 
 For more information please check official documentation: [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
@@ -53,40 +66,5 @@ sudo kubeadm token create --print-join-command
 ```
 You can use the same join command on multiple worker nodes. No need to use separate for each.
 
-> Do not execute join command on the master node.
+> 🚨 Do not execute join command on the master node.
 
-## Install network plugin
-Networking of pods, nodes are not part of the k8s. It is handled by the network plugin. Here are some popular network plugins. You can use **flannel** or **calico** as desired
-- **calico:** This is very popular
-- **flannel:** This is favored by Oracle Cloud
-- Official documentation
-    - [Network Plugins](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-    - [Container Network Interface (CNI) - networking for Linux containers](https://github.com/containernetworking/cni)
-
-### Install Calico
-> DO NOT install, if you are going to use **flannel**
-
-Please review steps in [official documentation](https://docs.tigera.io/calico/latest/getting-started/kubernetes/quickstart#install-calico)
-
-Execute the following to install:
-```shell
-kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/tigera-operator.yaml
-kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/custom-resources.yaml
-```
-This will going to install some kubernetes compontents. This will take some time. Check the installation as below:
-```shell
-watch kubectl get pods -n calico-system
-```
-You **MUST** see all numbers **full** and **Running** ![](./images/scr-13.png)
-
-To exit *watch* press `CTRL + C`. After that you can continue installation
-
-### Install flannel
-> DO NOT install if you are going to use **calico**
-```shell
-kubectl create ns kube-flannel
-kubectl label --overwrite ns kube-flannel pod-security.kubernetes.io/enforce=privileged
-
-helm repo add flannel https://flannel-io.github.io/flannel/
-helm install flannel --set podCidr="192.168.0.0/16" --namespace kube-flannel flannel/flannel
-```

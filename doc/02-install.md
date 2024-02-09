@@ -39,31 +39,9 @@ We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands 
     ```
     Details explained under [firewall documentation](./firewall.md)
 ## 2. Container Runtime
-There are multiple [container runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) are supported by Kubernetes. For this workshop we will be using docker.
 
-### 2.1 Docker installation
+It is possible to work with a selection container engine. Please follow [cri document](./cri)
 
-You can follow the official guide or use the [script](../scripts/docker-install.sh)
-
-#### Official docs
-1. Follow the official [Install Docker Engine on Ubuntu guide](https://docs.docker.com/engine/install/ubuntu/)
-2. Make sure that [Linux postinstall](https://docs.docker.com/engine/install/linux-postinstall/) are not missed
-
-#### Scripted install
-```shell
-curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/docker-install.sh | bash
-newgrp docker
-```
-
-### 2.2 Install cri-dockerd
-This enables docker & kubernetes to talk to each other. In earlier versions of Docker this was included in the bundle.
-
-Review the [script file](../scripts/cri-dockerd-install.sh) and execute it. (Release might be updated in future)
-
-**Install**
-```shell
-curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/cri-dockerd-install.sh | bash
-```
 
 ## 3. K8s installation
 We are going to install necessary tools to initialize a k8s cluster.
@@ -106,9 +84,11 @@ It would be good practice to pre-download the K8s images. Use the following comm
 ```shell
 sudo kubeadm config images pull
 ```
+> 💡 This `kubeadm` command might require you to specify `--cri-socket` argument. Please refer to your installed container engine installation document, which you have completed earler.
+
 
 ## 6. Create Image
-> YES!. You need to perform the step now!
+> YES! You need to perform the step now!
 
 1. If you are not familiar with creating images, review the [Creating a Custom Image document](https://docs.oracle.com/en-us/iaas/secure-desktops/create-custom-image.htm)
 2. Create image in same compartment, name it as `k8s-base`. While creating the image, machine will be offline, automatically restart afterwards. Do not refresh VScode window, until instance status becomes ready. ![](./images/scr-12.png)
