@@ -14,27 +14,30 @@ You are given script files to automate the installation. This will greately spee
 
 ## 1. OS Configurations
 We have selected Ubuntu 22.04 as the OS. Through rest of the workshop, commands are tailored for the specific OS.
+1. **Update system**  
+    Even we are using the most recent versions of the OS, the bundled packages could be outdated. Best to start with most up-to-date system
+    ```shell
+    sudo apt update
+    sudo apt upgrade -y
+    ```
+    This update process might be showing some interactive terminal inputs. Like asking which services to restart. Use default selections. If needed, use `tab` key to navigate, `enter` key to accept.  
+    This first upgrade usually is a big update. In most of the cases system looses stability. To fix this rebooting helps.
+    ```shell
+    sudo reboot
+    ```
+    Rebooting causes VScode to disconnect. Wait a while (typically 30 seconds). And have the VSccode to reload ![](./images/scr-12.png)
 
-1. Disable swap
+2. **Disable swap**
     ```shell
     sudo apt install cron -y
     sudo swapoff -a
     (sudo crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | sudo crontab - || true
     ```
-2. Open ports on firewall  
-    We are going follow to steps to enable **iptables** instead of **ufw**. You can stick with [ufw](./ufw.md), instead. This is not recommended.
-
+3. **Open ports on firewall**  
     ```shell
     curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/iptables.sh | bash
     ```
-    
-    More information about [k8s ports](https://kubernetes.io/docs/reference/networking/ports-and-protocols/)
-
-3. Install net tools
-    ```shell
-    sudo apt install net-tools -y
-    ```
-
+    Details explained under [firewall documentation](./firewall.md)
 ## 2. Container Runtime
 There are multiple [container runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/) are supported by Kubernetes. For this workshop we will be using docker.
 
