@@ -100,7 +100,13 @@ It can be installed easly as stated in [the official documentation](https://helm
 curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scripts/helm-install.sh | bash
 ```
 
-## 5. Create Image
+## 7. Fetch K8s images
+It would be good practice to pre-download the K8s images. Use the following command to download k8s images:
+```shell
+sudo kubeadm config images pull
+```
+
+## 6. Create Image
 > YES!. You need to perform the step now!
 
 1. If you are not familiar with creating images, review the [Creating a Custom Image document](https://docs.oracle.com/en-us/iaas/secure-desktops/create-custom-image.htm)
