@@ -12,4 +12,4 @@ curl https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/scrip
 ```
 
 # CRI Socket
-> 💡 If there are multiple cri installed, you should specify which one to use. Add, `--cri-socket unix:///var/run/crio/crio.sock` whenever if needed. Typically this is not needed with just containerd installation. You can try regular `kubeadm` command. If this is failing due to unspecifiec cri-socket, add the argument as specified. Be careful while executing kubeadm commands.
+> 💡 If there are multiple cri installed, you should specify which one to use. Add, `--cri-socket unix:///var/run/crio/crio.sock` whenever if needed. Typically this is not needed with just containerd installation. You can try regular `kubeadm` command. If this is failing due to unspecified cri-socket, add the argument as specified. Be careful while executing kubeadm commands.
