@@ -53,7 +53,7 @@ You will install these packages on all of your machine:
 
 You can check the official documentation: [Installing kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime), which will install all of them.
 
-> This environment that is provided by OCI & Ubuntu. It is quite updated. Most of the prerequisites in the documentation is already met.
+> This environment that is provided by OCI & Ubuntu. It is quite up-to-date. Most of the prerequisites in the documentation is already met.
 
 Please review the [install script](../scripts/kubeadm-install.sh) and perform installation as following:
 ```shell
