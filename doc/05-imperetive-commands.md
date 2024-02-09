@@ -163,7 +163,7 @@
         <summary>Answer</summary>
 
     ```shell
-    kubectl exec -it nginx1 bash
+    kubectl exec -it nginx1 -- bash
     ```
     </details>
 2. Change the contents of the default nginx index.html file: /usr/share/nginx/html/index.html
