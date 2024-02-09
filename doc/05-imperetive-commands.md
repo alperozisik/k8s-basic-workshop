@@ -91,7 +91,7 @@
 
     You need to replace the pod name from the previous query
     ```shell
-    kubectl describe pod alpine1-5d997c9767-jk9cx
+    kubectl describe pod alpine1
     ```
     IP will be listed within the answer
     </details>
@@ -140,7 +140,7 @@
 
     You need to replace the pod name from the previous query
     ```shell
-    kubectl describe pod nginx1-846d65cc74-p5h4l
+    kubectl describe pod nginx1
     ```
     </details>
 
@@ -163,7 +163,7 @@
         <summary>Answer</summary>
 
     ```shell
-    kubectl exec -it nginx1-846d65cc74-p5h4l bash
+    kubectl exec -it nginx1 bash
     ```
     </details>
 2. Change the contents of the default nginx index.html file: /usr/share/nginx/html/index.html
