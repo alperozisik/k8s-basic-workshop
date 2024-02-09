@@ -96,7 +96,7 @@
     IP will be listed within the answer
     </details>
 7. Ping the pod’s IP address. Can you reach it? (Optional: also try to ping it from another node)
-    > 🗒️ we will get back to this in a future lesson, but this is the „magic” of Kubernetes networking - all pods are reachable from all nodes, on the same (private) IP address!
+    > 🗒️ we will get back to this in a future lesson, but this is the "magic" of Kubernetes networking - all pods are reachable from all nodes, on the same (private) IP address!
     <details>
         <summary>Answer</summary>
 
