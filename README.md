@@ -13,7 +13,7 @@ Follow your instructor on the steps
 ## Lab 2: Running Workloads Imperatively
 1. [Imperetive Commands](./doc/05-imperetive-commands.md)
 
-# Day 2 Labs
+# Day 2 Labs
 1. [The Declerative Model](./doc/06-declerative-model.md)
 2. [Deployments, ReplicaSets](./doc/07-deployments-replicasets.md)
 3. [Persisting Data](./doc/08-persisting-data.md)
