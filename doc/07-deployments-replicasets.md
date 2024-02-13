@@ -11,15 +11,15 @@ We will also see some use cases for labels and selectors.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl get nodes --show-labels
+    ubuntu@master-node:~$ kubectl get nodes --show-labels
     NAME STATUS ROLES AGE VERSION LABELS
-    kubernetes-00-01 Ready master 5h v1.11.2
+    master-node Ready master 5h v1.11.2
     beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/hostname=kubernetes-
     00-01,node-role.kubernetes.io/master=
-    kubernetes-00-02 Ready <none> 4h v1.11.2
+    worker-01 Ready <none> 4h v1.11.2
     beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/hostname=kubernetes-
     00-02
-    kubernetes-00-03 Ready <none> 4h v1.11.2
+    worker-02 Ready <none> 4h v1.11.2
     beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/hostname=kubernetes-
     00-03
     ```
@@ -32,9 +32,9 @@ We will also see some use cases for labels and selectors.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl get nodes -l kubernetes.io/hostname=kubernetes-00-02
+    ubuntu@master-node:~$ kubectl get nodes -l kubernetes.io/hostname=worker-01
     NAME STATUS ROLES AGE VERSION
-    kubernetes-00-02 Ready <none> 4h v1.11.2
+    worker-01 Ready <none> 4h v1.11.2
     ```
     </details>
 4. In a previous lab, you have created a simple pod definition file ( 01-pod.yaml ). Copy it to a new file ( 04-pod-nodeselector.yaml ). Edit the new file so that the pod will only run on the 10th node in the cluster (for example, if your nodes are named kube-cluster-xx, this pod should only run on nodes with the `hostname = kube-cluster-10` ).
@@ -63,7 +63,7 @@ We will also see some use cases for labels and selectors.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl apply -f 04-pod-nodeselector.yml
+    ubuntu@master-node:~$ kubectl apply -f 04-pod-nodeselector.yml
     pod/nginx01 created
     ```
     </details>
@@ -72,7 +72,7 @@ We will also see some use cases for labels and selectors.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl get pod
+    ubuntu@master-node:~$ kubectl get pod
     NAME READY STATUS RESTARTS AGE
     nginx01 0/1 Pending 0 26s
     ```
@@ -83,7 +83,7 @@ We will also see some use cases for labels and selectors.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl describe pod nginx01
+    ubuntu@master-node:~$ kubectl describe pod nginx01
     Name: nginx01
     ...
     Events:
@@ -104,7 +104,7 @@ We will also see some use cases for labels and selectors.
       name: nginx01
     spec:
       nodeSelector:
-        kubernetes.io/hostname: kubernetes-00-03
+        kubernetes.io/hostname: worker-02
       containers:
         - image: nginx
           name: nginx
@@ -115,9 +115,9 @@ We will also see some use cases for labels and selectors.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl delete pod nginx01
+    ubuntu@master-node:~$ kubectl delete pod nginx01
     pod "nginx01" deleted
-    student@kubernetes-00-01:~$ kubectl apply -f 04-pod-nodeselector.yml
+    ubuntu@master-node:~$ kubectl apply -f 04-pod-nodeselector.yml
     pod/nginx01 created
     ```
     </details>
@@ -126,9 +126,9 @@ We will also see some use cases for labels and selectors.
         <summary>Answer</summary>
     
     ```
-    student@kubernetes-00-01:~$ kubectl get pod -o wide
+    ubuntu@master-node:~$ kubectl get pod -o wide
     NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE
-    nginx01 1/1 Running 0 44s 192.168.38.72 kubernetes-00-03 <none>
+    nginx01 1/1 Running 0 44s 192.168.38.72 worker-02 <none>
     ```
     </details>
 11. Delete the pod.
@@ -136,7 +136,7 @@ We will also see some use cases for labels and selectors.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl delete pod nginx01
+    ubuntu@master-node:~$ kubectl delete pod nginx01
     pod "nginx01" deleted
     ```
     </details>
@@ -196,7 +196,7 @@ https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#example ),
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl apply -f 05-replicaset.yaml
+    ubuntu@master-node:~$ kubectl apply -f 05-replicaset.yaml
     replicaset.extensions/web-replicaset-01 created
     ```
     </details>
@@ -205,13 +205,13 @@ https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#example ),
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl get pod -o wide
+    ubuntu@master-node:~$ kubectl get pod -o wide
     NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE
-    web-replicaset-01-6zcrf 1/1 Running 0 55s 192.168.63.202 kubernetes-00-02 <none>
-    web-replicaset-01-ffp9h 1/1 Running 0 55s 192.168.38.75 kubernetes-00-03 <none>
-    web-replicaset-01-h22jh 1/1 Running 0 55s 192.168.63.203 kubernetes-00-02 <none>
-    web-replicaset-01-l8k4j 1/1 Running 0 55s 192.168.38.74 kubernetes-00-03 <none>
-    web-replicaset-01-zpt7r 1/1 Running 0 55s 192.168.63.204 kubernetes-00-02 <none>
+    web-replicaset-01-6zcrf 1/1 Running 0 55s 192.168.63.202 worker-01 <none>
+    web-replicaset-01-ffp9h 1/1 Running 0 55s 192.168.38.75 worker-02 <none>
+    web-replicaset-01-h22jh 1/1 Running 0 55s 192.168.63.203 worker-01 <none>
+    web-replicaset-01-l8k4j 1/1 Running 0 55s 192.168.38.74 worker-02 <none>
+    web-replicaset-01-zpt7r 1/1 Running 0 55s 192.168.63.204 worker-01 <none>
     ```
     </details>
 4. In order to save resources, let’s scale the ReplicaSet down to two replicas. We could do this by using kubectl scale, but let’s stick to the declarative model. Edit the file, changing the number of replicas to 2, and reapply the file. Watch the running pods to see the result. You should see the extra pods being terminated.
@@ -240,18 +240,18 @@ https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/#example ),
             image: nginx
     ```
     ```
-    student@kubernetes-00-01:~$ kubectl apply -f 05-replicaset.yaml
+    ubuntu@master-node:~$ kubectl apply -f 05-replicaset.yaml
     replicaset.extensions/web-replicaset-01 configured
-    student@kubernetes-00-01:~$ kubectl get pod -o wide
+    ubuntu@master-node:~$ kubectl get pod -o wide
     NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE
-    web-replicaset-01-6zcrf 1/1 Running 0 5m 192.168.63.202 kubernetes-00-02 <none>
-    web-replicaset-01-ffp9h 0/1 Terminating 0 5m <none> kubernetes-00-03 <none>
-    web-replicaset-01-h22jh 0/1 Terminating 0 5m 192.168.63.203 kubernetes-00-02 <none>
-    web-replicaset-01-l8k4j 1/1 Running 0 5m 192.168.38.74 kubernetes-00-03 <none>
-    student@kubernetes-00-01:~$ kubectl get pod -o wide
+    web-replicaset-01-6zcrf 1/1 Running 0 5m 192.168.63.202 worker-01 <none>
+    web-replicaset-01-ffp9h 0/1 Terminating 0 5m <none> worker-02 <none>
+    web-replicaset-01-h22jh 0/1 Terminating 0 5m 192.168.63.203 worker-01 <none>
+    web-replicaset-01-l8k4j 1/1 Running 0 5m 192.168.38.74 worker-02 <none>
+    ubuntu@master-node:~$ kubectl get pod -o wide
     NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE
-    web-replicaset-01-6zcrf 1/1 Running 0 5m 192.168.63.202 kubernetes-00-02 <none>
-    web-replicaset-01-l8k4j 1/1 Running 0 5m 192.168.38.74 kubernetes-00-03 <none>
+    web-replicaset-01-6zcrf 1/1 Running 0 5m 192.168.63.202 worker-01 <none>
+    web-replicaset-01-l8k4j 1/1 Running 0 5m 192.168.38.74 worker-02 <none>
     ```
     </details>
 5. Our application is getting more successful - we need more web server instances! Scale the
@@ -281,9 +281,9 @@ ReplicaSet up to 6 instances.
             image: nginx
     ```
     ```shell
-    student@kubernetes-00-01:~$ kubectl apply -f 05-replicaset.yaml
+    ubuntu@master-node:~$ kubectl apply -f 05-replicaset.yaml
     replicaset.extensions/web-replicaset-01 configured
-    student@kubernetes-00-01:~$ kubectl get pod
+    ubuntu@master-node:~$ kubectl get pod
     NAME READY STATUS RESTARTS AGE
     web-replicaset-01-6zcrf 1/1 Running 0 7m
     web-replicaset-01-fwqdv 0/1 ContainerCreating 0 3s
@@ -299,10 +299,10 @@ ReplicaSet up to 6 instances.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl delete pod web-replicaset-01-w46tc
+    ubuntu@master-node:~$ kubectl delete pod web-replicaset-01-w46tc
     pod "web-replicaset-01-w46tc" deleted
 
-    student@kubernetes-00-01:~$ kubectl get pod
+    ubuntu@master-node:~$ kubectl get pod
     NAME READY STATUS RESTARTS AGE
     web-replicaset-01-6gmds 0/1 ContainerCreating 0 2s
     web-replicaset-01-6zcrf 1/1 Running 0 8m
@@ -321,9 +321,9 @@ ReplicaSet up to 6 instances.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl delete replicaset web-replicaset-01 --cascade=false
+    ubuntu@master-node:~$ kubectl delete replicaset web-replicaset-01 --cascade=false
     replicaset.extensions "web-replicaset-01" deleted
-    student@kubernetes-00-01:~$ kubectl get pod
+    ubuntu@master-node:~$ kubectl get pod
     NAME READY STATUS RESTARTS AGE
     web-replicaset-01-6gmds 1/1 Running 0 1m
     web-replicaset-01-6zcrf 1/1 Running 0 9m
@@ -340,9 +340,9 @@ ReplicaSet up to 6 instances.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl delete pod web-replicaset-01-x6zf6
+    ubuntu@master-node:~$ kubectl delete pod web-replicaset-01-x6zf6
     pod "web-replicaset-01-x6zf6" deleted
-    student@kubernetes-00-01:~$ kubectl get pod
+    ubuntu@master-node:~$ kubectl get pod
     NAME READY STATUS RESTARTS AGE
     web-replicaset-01-6gmds 1/1 Running 0 1m
     web-replicaset-01-6zcrf 1/1 Running 0 9m
@@ -359,9 +359,9 @@ ReplicaSet up to 6 instances.
         <summary>Answer</summary>
 
     ```shell
-    student@kubernetes-00-01:~$ kubectl apply -f 05-replicaset.yaml
+    ubuntu@master-node:~$ kubectl apply -f 05-replicaset.yaml
     replicaset.extensions/web-replicaset-01 created
-    student@kubernetes-00-01:~$ kubectl get pod
+    ubuntu@master-node:~$ kubectl get pod
     NAME READY STATUS RESTARTS AGE
     web-replicaset-01-6gmds 1/1 Running 0 2m
     web-replicaset-01-6zcrf 1/1 Running 0 10m
@@ -393,9 +393,9 @@ happens?
         name: nginx
     ```
     ```shell
-    student@kubernetes-00-01:~$ kubectl apply -f 06-pod-labeled.yaml
+    ubuntu@master-node:~$ kubectl apply -f 06-pod-labeled.yaml
     pod/nginx01 created
-    student@kubernetes-00-01:~$ kubectl get pod
+    ubuntu@master-node:~$ kubectl get pod
     NAME READY STATUS RESTARTS AGE
     nginx01 0/1 Terminating 0 2s
     web-replicaset-01-6gmds 1/1 Running 0 9m
@@ -435,8 +435,30 @@ instances of the nginx pod. Use `app: depl-web` for the template labels, and the
     <details>
         <summary>Answer</summary>
 
+    content of `07-deployment.yaml`:
+    ```yaml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: web-deployment-01
+    spec:
+      replicas: 6
+      selector:
+        matchLabels:
+          app: depl-web
+      template:
+        metadata:
+          labels:
+            app: depl-web
+      spec:
+        containers:
+        - name: nginx
+          image: nginx
+    ```
+    apply using
     ```shell
-    kubectl get namespaces
+    ubuntu@master-node:~$ kubectl apply -f 07-deployment.yaml
+    deployment.apps/web-deployment-01 created
     ```
     </details>
 2. Apply the YAML file.
@@ -444,7 +466,8 @@ instances of the nginx pod. Use `app: depl-web` for the template labels, and the
         <summary>Answer</summary>
 
     ```shell
-    kubectl get namespaces
+    ubuntu@master-node:~$ kubectl apply -f 07-deployment.yaml
+    deployment.apps/web-deployment-01 created
     ```
     </details>
 3. Display the list of running pods. You should see the newly-created 6 instances.
@@ -452,7 +475,14 @@ instances of the nginx pod. Use `app: depl-web` for the template labels, and the
         <summary>Answer</summary>
 
     ```shell
-    kubectl get namespaces
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    web-deployment-01-74446f759b-4m45p 1/1 Running 0 2m
+    web-deployment-01-74446f759b-gvxfk 1/1 Running 0 2m
+    web-deployment-01-74446f759b-ljv8x 1/1 Running 0 2m
+    web-deployment-01-74446f759b-mhfkh 1/1 Running 0 2m
+    web-deployment-01-74446f759b-tb7jb 1/1 Running 0 2m
+    web-deployment-01-74446f759b-vb7vq 1/1 Running 0 2m
     ```
     </details>
 4. Display the list of ReplicaSets. Notice that the deployment actually creates a ReplicaSet in the background, and it is the ReplicaSet that manages the pods.
@@ -460,7 +490,9 @@ instances of the nginx pod. Use `app: depl-web` for the template labels, and the
         <summary>Answer</summary>
 
     ```shell
-    kubectl get namespaces
+    ubuntu@master-node:~$ kubectl get replicasets.
+    NAME DESIRED CURRENT READY AGE
+    web-deployment-01-74446f759b 6 6 6 2m
     ```
     </details>
 
@@ -471,15 +503,32 @@ A new version of the application (in this case, the webserver) is out - let’s 
         <summary>Answer</summary>
 
     ```shell
-    kubectl get namespaces
+    ubuntu@master-node:~$ cp 07-deployment.yaml 08-deployment-upgraded.yaml
     ```
     </details>
 2. Change the new file so that the containers are running nginx:1.15.1 as an image.
     <details>
         <summary>Answer</summary>
 
-    ```shell
-    kubectl get namespaces
+    content of `08-deployment-upgraded.yaml`:
+    ```yaml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: web-deployment-01
+    spec:
+      replicas: 6
+      selector:
+      matchLabels:
+        app: depl-web
+      template:
+        metadata:
+          labels:
+            app: depl-web
+      spec:
+        containers:
+        - name: nginx
+          image: nginx:1.15.1
     ```
     </details>
 3. Apply the new file to the system.
@@ -487,7 +536,8 @@ A new version of the application (in this case, the webserver) is out - let’s 
         <summary>Answer</summary>
 
     ```shell
-    kubectl get namespaces
+    ubuntu@master-node:~$ kubectl apply -f 08-deployment-upgraded.yaml
+    deployment.apps/web-deployment-01 configured
     ```
     </details>
 4. Take a look at the list of pods. What happens?
@@ -497,7 +547,27 @@ A new version of the application (in this case, the webserver) is out - let’s 
         <summary>Answer</summary>
 
     ```shell
-    kubectl get namespaces
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    web-deployment-01-74446f759b-4m45p 1/1 Running 0 8m
+    web-deployment-01-74446f759b-gvxfk 1/1 Running 0 8m
+    web-deployment-01-74446f759b-ljv8x 0/1 Terminating 0 8m
+    web-deployment-01-74446f759b-mhfkh 1/1 Running 0 8m
+    web-deployment-01-74446f759b-tb7jb 1/1 Running 0 8m
+    web-deployment-01-74446f759b-vb7vq 1/1 Running 0 8m
+    web-deployment-01-7dbb4874dd-ghblw 0/1 ContainerCreating 0 2s
+    web-deployment-01-7dbb4874dd-l4shl 0/1 ContainerCreating 0 2s
+    web-deployment-01-7dbb4874dd-xb8fh 0/1 ContainerCreating 0 2s
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    web-deployment-01-74446f759b-gvxfk 0/1 Terminating 0 9m
+    web-deployment-01-74446f759b-tb7jb 0/1 Terminating 0 9m
+    web-deployment-01-7dbb4874dd-ghblw 1/1 Running 0 36s
+    web-deployment-01-7dbb4874dd-l4shl 1/1 Running 0 36s
+    web-deployment-01-7dbb4874dd-lj2ms 1/1 Running 0 12s
+    web-deployment-01-7dbb4874dd-pv7sv 1/1 Running 0 9s
+    web-deployment-01-7dbb4874dd-tztrj 1/1 Running 0 18s
+    web-deployment-01-7dbb4874dd-xb8fh 1/1 Running 0 36s
     ```
     </details>
 5. Take a look at the list of ReplicaSets. What do you see?
@@ -506,7 +576,10 @@ A new version of the application (in this case, the webserver) is out - let’s 
         <summary>Answer</summary>
 
     ```shell
-    kubectl get namespaces
+    ubuntu@master-node:~$ kubectl get rs
+    NAME DESIRED CURRENT READY AGE
+    web-deployment-01-74446f759b 0 0 0 11m
+    web-deployment-01-7dbb4874dd 6 6 6 3m
     ```
     </details>
 
@@ -516,6 +589,11 @@ A new version of the application (in this case, the webserver) is out - let’s 
         <summary>Answer</summary>
 
     ```shell
-    kubectl get namespaces
+    ubuntu@master-node:~$ kubectl delete deployments web-deployment-01
+    deployment.extensions "web-deployment-01" deleted
+    ubuntu@master-node:~$ kubectl get rs
+    No resources found.
+    ubuntu@master-node:~$ kubectl get pod
+    No resources found.
     ```
     </details>
