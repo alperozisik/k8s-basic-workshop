@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-03
+  labels:
+    app: webserver
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: app     
+              operator: In
+              values:
+              - webserver
+          topologyKey: kubernetes.io/hostname
+  containers:
+  - image: nginx
+    name: nginx-host
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: nginx-nfs-volume
+  volumes:
+    - name: nginx-nfs-volume
+      persistentVolumeClaim:
+        claimName: pvc02

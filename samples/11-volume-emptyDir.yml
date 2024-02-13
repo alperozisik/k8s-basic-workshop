@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine-vol
+spec:
+  containers:
+  - image: alpine
+    command:
+      - /bin/sh
+      - "-c"
+      - "sleep 60"
+    name: alpine-ed
+    volumeMounts:
+    - mountPath: /cache
+      name: alpine-volume
+  volumes:
+  - name: alpine-volume
+    emptyDir: {}

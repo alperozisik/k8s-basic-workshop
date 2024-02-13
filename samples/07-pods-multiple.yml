@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine-sh-01
+spec:
+  hostname: alpine-01
+  containers:
+    - name: alpine
+      image: alpine:latest
+      stdin: true
+      tty: true
+ 
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine-sh-02
+spec:
+  hostname: alpine-02
+  containers:
+    - name: alpine
+      image: alpine:latest
+      stdin: true
+      tty: true

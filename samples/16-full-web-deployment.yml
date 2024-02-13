@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-nginx
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: web-final-depl
+  template:
+    metadata:
+      labels:
+        app: web-final-depl
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: nfs-vol
+      volumes:
+      - name: nfs-vol
+        nfs:
+          server: 10.1.121.28
+          path: /volume1/NFS_K8S
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: webservice-01
+spec:
+  selector:
+    app: web-final-depl
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80

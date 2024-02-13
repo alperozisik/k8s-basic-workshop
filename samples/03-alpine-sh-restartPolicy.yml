@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine-02
+spec:
+  containers:
+    - name: alpine
+      image: alpine:latest
+      stdin: true
+      tty: true
+  restartPolicy: OnFailure 

@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: webservice-02
+spec:
+  selector:
+    app: webserver-01
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
