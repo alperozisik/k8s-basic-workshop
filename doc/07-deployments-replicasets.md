@@ -294,7 +294,7 @@ ReplicaSet up to 6 instances.
     ```
     </details>
 6. Delete one of the pods? What happens?
-    > 🗒️**Note:** You are beginning to see the *magic* of the declarative model - we have told Kubernetes to keep a certain desired state (`6 replicas`), and it will do its best to maintain that state. When a pod *disappears* (crashed, deleted, etc), a new one will immediately take its place.
+    > 🗒️**Note:** You are beginning to see the *magic* of the declarative model - we have told Kubernetes to keep a certain desired state (*6 replicas*), and it will do its best to maintain that state. When a pod *disappears* (crashed, deleted, etc), a new one will immediately take its place.
     <details>
         <summary>Answer</summary>
 
