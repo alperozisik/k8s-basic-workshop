@@ -319,17 +319,169 @@ Remember that you will need:
 `exit 1` (for failure).
 2. Attach to the running alpine container. Type `exit 0`. What happens?
     > 💡**Hint:** this is a `success`. The container status will briefly change to `Completed`, and then the pod will be restarted.
+    <details>
+        <summary>Answer</summary>
+
+    ```
+    kubectl attach -it alpine01
+    Defaulting container name to alpine.
+    Use 'kubectl describe pod/alpine01 -n default' to see all of the
+    containers in this pod.
+    If you don't see a command prompt, try pressing enter.
+    / # exit 0
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    alpine01 0/1 Completed 1 9m
+    nginx01 1/1 Running 0 39m
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    alpine01 1/1 Running 2 10m
+    nginx01 1/1 Running 0 40m
+    ```
+    </details>
 3. Once the pod is running again, reattach to it. This time, type `exit 1`. What happens?
 Hint: this is **exit with an error**. The container status will change to `Error`, and then the pod will be restarted.
+    <details>
+        <summary>Answer</summary>
+
+    ```
+    kubectl attach -it alpine01
+    Defaulting container name to alpine.
+    Use 'kubectl describe pod/alpine01 -n default' to see all of the
+    containers in this pod.
+    If you don't see a command prompt, try pressing enter.
+    / # exit 1
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    alpine01 0/1 Error 2 11m
+    nginx01 1/1 Running 0 41m
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    alpine01 1/1 Running 3 14m
+    nginx01 1/1 Running 0 43m
+    ```
+    </details>
 4. Delete the pod. Change the YAML file so that `restartPolicy` (under spec) is set to `OnFailure`.
+    <details>
+        <summary>Answer</summary>
+
+    ```
+    ubuntu@master-node:~$ kubectl delete pod alpine01
+    pod "alpine01" deleted
+    ubuntu@master-node:~$ cat 02-alpine.yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+    name: alpine01
+    spec:
+    containers:
+    - image: alpine
+    name: alpine
+    stdin: true
+    tty: true
+    restartPolicy: OnFailure
+    ```
+    </details>
 5. Create a new pod based on the changed file.
+    <details>
+        <summary>Answer</summary>
+
+    ```shell
+    kubectl apply -f 02-alpine.yaml
+    pod/alpine01 created
+    ```
+    </details>
 6. Repeat steps 2 and 3 above. What happens?
     > 💡**Hint:** Start with step 3, and then move to step 2 😉 This time, only a pod that exits due to an error is restarted. Once the pod completes execution successfully, it remains stopped.
+    <details>
+        <summary>Answer</summary>
+
+    ```
+    ubuntu@master-node:~$ kubectl attach -it alpine01
+    Defaulting container name to alpine.
+    Use 'kubectl describe pod/alpine01 -n default' to see all of the
+    containers in this pod.
+    If you don't see a command prompt, try pressing enter.
+    / # exit 1
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    alpine01 0/1 Error 0 36s
+    nginx01 1/1 Running 0 46m
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    alpine01 1/1 Running 1 41s
+    nginx01 1/1 Running 0 46m
+    ubuntu@master-node:~$ kubectl attach -it alpine01
+    Defaulting container name to alpine.
+    Use 'kubectl describe pod/alpine01 -n default' to see all of the
+    containers in this pod.
+    If you don't see a command prompt, try pressing enter.
+    / # exit 0
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    alpine01 0/1 Completed 1 59s
+    nginx01 1/1 Running 0 46m
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    alpine01 0/1 Completed 1 2m
+    nginx01 1/1 Running 0 47m
+    ```
 
 # 4. (Optional) Running Multiple Pods
 1. Create a single file ( 03-pods.yaml ) that starts both an alpine and an nginx pod.
     > 💡**Hint:** The easiest way to do this is to simply use two yaml documents (separated by `---` ) inside a single file.
+    <details>
+        <summary>Answer</summary>
+
+    content of `03-pods.yaml` file
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: nginx02
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
+    ---
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: alpine02
+    spec:
+      containers:
+      - image: alpine
+        name: alpine
+        stdin: true
+        tty: true
+    ```
+    </details>
 2. Apply the file and verify that the two pods get created correctly.
+    <details>
+        <summary>Answer</summary>
+
+    ```shell
+    ubuntu@master-node:~$ kubectl apply -f 03-pods.yaml
+    pod/nginx02 created
+    pod/alpine02 created
+    ubuntu@master-node:~$ kubectl get pod
+    NAME READY STATUS RESTARTS AGE
+    alpine01 0/1 Completed 1 5m
+    alpine02 1/1 Running 0 36s
+    nginx01 1/1 Running 0 50m
+    nginx02 1/1 Running 0 36s
+    ```
+    </details>
 
 # 5. Cleaning Up
 1. Delete all pods.
+    <details>
+        <summary>Answer</summary>
+
+    ```shell
+    ubuntu@master-node:~$ kubectl delete pods --all
+    pod "alpine02" deleted
+    pod "nginx01" deleted
+    pod "nginx02" deleted
+    ```
+    </details>
