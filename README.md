@@ -14,7 +14,7 @@ Follow your instructor on the steps
 1. [Imperetive Commands](./doc/05-imperetive-commands.md)
 
 # Day 2 Labs
-1. [The Declerative Model](./doc/06-declerative-model.md)
+1. [The Declarative Model](./doc/06-declarative-model.md)
 2. [Deployments, ReplicaSets](./doc/07-deployments-replicasets.md)
 3. [Persisting Data](./doc/08-persisting-data.md)
 4. [Networking](./doc/09-networking.md)
