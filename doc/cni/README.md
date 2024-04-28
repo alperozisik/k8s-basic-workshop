@@ -50,7 +50,7 @@ Please review steps in [official documentation](https://docs.tigera.io/calico/la
 
 Execute the following to install:
 ```shell
-kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/tigera-operator.yaml
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.3/manifests/tigera-operator.yaml
 kubectl create -f https://raw.githubusercontent.com/alperozisik/k8s-basic-workshop/main/k8s/calico-install/custom-resources.yaml
 ```
 
