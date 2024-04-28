@@ -56,7 +56,7 @@ kubectl create -f https://raw.githubusercontent.com/alperozisik/k8s-basic-worksh
 
 This will going to install some kubernetes compontents. This will take some time. Check the installation as below:
 ```shell
-watch kubectl get pods -n calico-system
+watch kubectl get pods -n calico-system -o wide
 ```
 You **MUST** see all numbers **full** and **Running** ![](./images/scr-13.png)
 
