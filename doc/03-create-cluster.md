@@ -68,5 +68,5 @@ You can use the same join command on multiple worker nodes. No need to use separ
 
 > 🚨 Do not execute join command on the master node.
 
-## Network Plugin
+## Network Plugin
 Network within Kubernetes handled over Network Plugins. They are explained under [Container Networking Interface](./cni). Install one of the plugins before proceeding next section.
