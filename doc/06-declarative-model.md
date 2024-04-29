@@ -37,8 +37,8 @@ Remember that you will need:
         name: <>
     spec:
         containers:
-        - image: <>
-            name: <>
+        - name: <>
+          image: <>
     ```
 
     <details>
@@ -51,8 +51,9 @@ Remember that you will need:
         name: nginx01
     spec:
         containers:
-        - image: nginx
-            name: nginx
+        - name: nginx
+          image: nginx
+            
     ```
     </details>
 4. Run the pod on the cluster.
