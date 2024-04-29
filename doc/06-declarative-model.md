@@ -52,7 +52,7 @@ Remember that you will need:
     spec:
         containers:
         - image: nginx
-        name: nginx
+            name: nginx
     ```
     </details>
 4. Run the pod on the cluster.
