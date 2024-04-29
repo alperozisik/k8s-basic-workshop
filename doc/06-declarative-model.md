@@ -375,12 +375,12 @@ Hint: this is **exit with an error**. The container status will change to `Error
     metadata:
     name: alpine01
     spec:
+    restartPolicy: OnFailure
     containers:
-      - image: alpine
+    - image: alpine
         name: alpine
         stdin: true
         tty: true
-      restartPolicy: OnFailure
     ```
     </details>
 5. Create a new pod based on the changed file.
