@@ -376,11 +376,11 @@ Hint: this is **exit with an error**. The container status will change to `Error
     name: alpine01
     spec:
     containers:
-    - image: alpine
-    name: alpine
-    stdin: true
-    tty: true
-    restartPolicy: OnFailure
+      - image: alpine
+        name: alpine
+        stdin: true
+        tty: true
+      restartPolicy: OnFailure
     ```
     </details>
 5. Create a new pod based on the changed file.
